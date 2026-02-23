@@ -43,7 +43,7 @@
 | Feature                       | Description                                                            |
 | ----------------------------- | ---------------------------------------------------------------------- |
 | **Multi-Protocol**            | TCP, HTTP, DNS, and more                                               |
-| **Service Integrations**      | Redis, MySQL, PostgreSQL, MongoDB, Kafka, RabbitMQ, InfluxDB, Temporal |
+| **Service Integrations**      | Redis, MySQL, PostgreSQL, MSSQL, MongoDB, Kafka, NATS, RabbitMQ, InfluxDB, Temporal |
 | **Reverse/Parallel Checking** | Invert checks or check multiple services at once                       |
 | **Exponential Backoff**       | Smarter retries                                                        |
 | **Cross-Platform**            | Single binary for Linux, macOS, Windows                                |
@@ -665,7 +665,9 @@ wait4x <command> --help
 | `http`       | Wait for an HTTP(S) endpoint with advanced checks |
 | `dns`        | Wait for DNS records (A, AAAA, CNAME, MX, etc.)   |
 | `kafka`      | Wait for Kafka server                             |
+| `nats`       | Wait for a NATS server                            |
 | `mysql`      | Wait for a MySQL database to be ready             |
+| `mssql`      | Wait for an MSSQL database to be ready            |
 | `postgresql` | Wait for a PostgreSQL database to be ready        |
 | `mongodb`    | Wait for a MongoDB database to be ready           |
 | `redis`      | Wait for a Redis server or key                    |

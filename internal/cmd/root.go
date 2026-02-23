@@ -185,6 +185,8 @@ func Execute() {
 	rootCmd.AddCommand(NewKafkaCommand())
 	rootCmd.AddCommand(NewMongoDBCommand())
 	rootCmd.AddCommand(NewRabbitMQCommand())
+	rootCmd.AddCommand(NewNATSCommand())
+	rootCmd.AddCommand(NewMSSQLCommand())
 	rootCmd.AddCommand(temporal.NewTemporalCommand())
 	rootCmd.AddCommand(NewVersionCommand())
 	rootCmd.AddCommand(NewExecCommand())
