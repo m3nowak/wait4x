@@ -43,7 +43,7 @@
 | Feature                       | Description                                                            |
 | ----------------------------- | ---------------------------------------------------------------------- |
 | **Multi-Protocol**            | TCP, HTTP, DNS, and more                                               |
-| **Service Integrations**      | Redis, MySQL, PostgreSQL, MongoDB, Kafka, RabbitMQ, InfluxDB, Temporal |
+| **Service Integrations**      | Redis, MySQL, PostgreSQL, MSSQL, MongoDB, Kafka, NATS, RabbitMQ, InfluxDB, Temporal |
 | **Reverse/Parallel Checking** | Invert checks or check multiple services at once                       |
 | **Exponential Backoff**       | Smarter retries                                                        |
 | **Cross-Platform**            | Single binary for Linux, macOS, Windows                                |
@@ -182,8 +182,12 @@ Here are some of the most useful Wait4X commands. Click the links for more detai
   [`wait4x dns A example.com`](#main-commands)
 - **MySQL:** Wait for MySQL DB  
   [`wait4x mysql 'user:password@tcp(localhost:3306)/mydb'`](#main-commands)
+- **MSSQL:** Wait for MSSQL DB  
+  [`wait4x mssql localhost:1433 --username sa --password 'Strong@Passw0rd!'`](#main-commands)
 - **Redis:** Wait for Redis and check for a key  
   [`wait4x redis redis://localhost:6379 --expect-key "session:active"`](#main-commands)
+- **NATS:** Wait for NATS broker  
+  [`wait4x nats nats://localhost:4222`](#main-commands)
 - **Run a command after check:**  
   [`wait4x tcp localhost:8080 -- ./start-app.sh`](#main-commands)
 - **Reverse check (wait for port to be free):**  
@@ -312,6 +316,16 @@ Check readiness for popular databases.
   wait4x postgresql 'postgres://user:password@localhost:5432/mydb?sslmode=disable&currentSchema=myschema' --expect-table my_table
   ```
 
+#### MSSQL
+- **Username/password connection:**
+  ```bash
+  wait4x mssql localhost:1433 --username sa --password 'Strong@Passw0rd!'
+  ```
+- **Disable TLS certificate verification:**
+  ```bash
+  wait4x mssql localhost:1433 --username sa --password 'Strong@Passw0rd!' --insecure-skip-tls-verify
+  ```
+
 #### MongoDB
   ```bash
   wait4x mongodb 'mongodb://user:password@localhost:27017/mydb?maxPoolSize=20'
@@ -387,6 +401,27 @@ Check readiness for popular databases.
 > **Notes:**
 > - The connection string format is: kafka://[user:pass@]host:port[?option=value&...]
 > - Supported options: authMechanism (scram-sha-256, scram-sha-512)
+
+#### NATS
+- **Basic NATS broker readiness check (no auth):**
+  ```bash
+  wait4x nats nats://localhost:4222
+  ```
+
+- **Check NATS with username/password authentication:**
+  ```bash
+  wait4x nats nats://localhost:4222 --username nats-user --password nats-password
+  ```
+
+- **Check NATS using credentials file:**
+  ```bash
+  wait4x nats nats://localhost:4222 --credential-file ./nats.credentials
+  ```
+
+- **Disable TLS certificate verification:**
+  ```bash
+  wait4x nats nats://localhost:4222 --insecure-skip-tls-verify
+  ```
 ---
 
 ### Shell Command
@@ -665,7 +700,9 @@ wait4x <command> --help
 | `http`       | Wait for an HTTP(S) endpoint with advanced checks |
 | `dns`        | Wait for DNS records (A, AAAA, CNAME, MX, etc.)   |
 | `kafka`      | Wait for Kafka server                             |
+| `nats`       | Wait for a NATS server                            |
 | `mysql`      | Wait for a MySQL database to be ready             |
+| `mssql`      | Wait for an MSSQL database to be ready            |
 | `postgresql` | Wait for a PostgreSQL database to be ready        |
 | `mongodb`    | Wait for a MongoDB database to be ready           |
 | `redis`      | Wait for a Redis server or key                    |
